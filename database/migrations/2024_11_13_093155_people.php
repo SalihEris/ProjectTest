@@ -11,19 +11,23 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('patient', function (Blueprint $table) {
+        Schema::create('people', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('person_id')->constrained('person')->onDelete('cascade');
-            $table->string('number')->unique();
-            $table->text('medical_record')->nullable();
+            $table->string('first_name');
+            $table->string('middle_name')->nullable();
+            $table->string('last_name');
+            $table->date('birth_date');
             $table->boolean('is_active')->default(true);
-            $table->text('message')->nullable();
+            $table->text('note')->nullable();
             $table->timestamps();
         });
     }
 
     public function down()
     {
-        Schema::dropIfExists('patient');
+        Schema::dropIfExists('people');
     }
 };
+
+
+

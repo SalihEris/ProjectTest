@@ -6,26 +6,24 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up()
+    public function up(): void
     {
-        Schema::create('employee', function (Blueprint $table) {
+        Schema::create('employees', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('person_id')->constrained('person')->onDelete('cascade');
-            $table->string('number')->unique();
-            $table->enum('employee_type', ['Assistant', 'Hygienist', 'Dentist', 'Manager']);
+            $table->foreignId('person_id')->constrained('persons')->cascadeOnDelete();
+            $table->string('number');
+            $table->enum('employee_type', ['Assistant', 'Dental Hygienist', 'Dentist', 'Practice Management']);
             $table->string('specialization')->nullable();
-            $table->text('availability')->nullable();
+            $table->json('availability');
             $table->boolean('is_active')->default(true);
             $table->text('note')->nullable();
             $table->timestamps();
         });
     }
 
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists('employee');
+        Schema::dropIfExists('employees');
     }
 };
+

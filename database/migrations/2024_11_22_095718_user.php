@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('person_id')->constrained('person')->onDelete('cascade');
+            $table->foreignId('person_id')->constrained('people')->cascadeOnDelete();
             $table->string('username');
             $table->string('password');
             $table->boolean('is_logged_in')->default(false);
